@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q360 Operant Viewer</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      margin: 2rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+    pre {
+      background: #111;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Q360.ViewerEngine.v1 – Live Operant Feed</h1>
+  <pre id="operant">Loading operant...</pre>
+  <pre id="memory">Loading memory diff...</pre>
+
+  <script>
+    async function updateView() {
+      try {
+        const operant = await fetch('https://vectorium-backend.onrender.com/q360/viewer/data').then(r => r.json());
+        const memory = await fetch('https://vectorium-backend.onrender.com/q360/viewer/memory').then(r => r.json());
+        document.getElementById('operant').textContent = JSON.stringify(operant, null, 2);
+        document.getElementById('memory').textContent = JSON.stringify(memory, null, 2);
+      } catch (err) {
+        document.getElementById('operant').textContent = 'Error fetching data.';
+        document.getElementById('memory').textContent = 'Error fetching memory.';
+      }
+    }
+
+    updateView();
+    setInterval(updateView, 30000); // refresh every 30s
+  </script>
+</body>
+</html>
 Enter file contents here
