@@ -1,10 +1,10 @@
 {
   "name": "vectorium-frontend",
   "version": "1.0.0",
-  "description": "Q360 Frontend Viewer Engine",
   "scripts": {
-    "start": "echo 'No start script needed for static site'",
-    "build": "echo 'No build needed'"
+    "start": "serve public"
   },
-  "license": "MIT"
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
 }
