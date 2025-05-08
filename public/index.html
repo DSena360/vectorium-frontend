@@ -2,47 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Q360 Operant Viewer</title>
+  <title>Q360.ViewerEngine.v1 – Live Operant Feed</title>
   <style>
     body {
       background-color: black;
       color: white;
       font-family: monospace;
-      margin: 2rem;
+      padding: 20px;
     }
     h1 {
-      font-size: 1.5rem;
+      font-size: 20px;
+      margin-bottom: 20px;
     }
     pre {
-      background: #111;
-      padding: 1rem;
-      overflow-x: auto;
-      border-radius: 8px;
+      background-color: #111;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <h1>Q360.ViewerEngine.v1 – Live Operant Feed</h1>
-  <pre id="operant">Loading operant...</pre>
-  <pre id="memory">Loading memory diff...</pre>
+  <pre id="operant">Loading operant data...</pre>
+  <pre id="memory">Loading memory data...</pre>
 
   <script>
-    async function updateView() {
+    async function fetchData() {
       try {
-        const operant = await fetch('https://vectorium-backend.onrender.com/q360/viewer/data').then(r => r.json());
-        const memory = await fetch('https://vectorium-backend.onrender.com/q360/viewer/memory').then(r => r.json());
-        document.getElementById('operant').textContent = JSON.stringify(operant, null, 2);
-        document.getElementById('memory').textContent = JSON.stringify(memory, null, 2);
-      } catch (err) {
-        document.getElementById('operant').textContent = 'Error fetching data.';
-        document.getElementById('memory').textContent = 'Error fetching memory.';
+        const operantRes = await fetch("https://vectorium-backend.onrender.com/q360/viewer/data");
+        const operant = await operantRes.json();
+        document.getElementById("operant").textContent = JSON.stringify(operant, null, 2);
+      } catch (e) {
+        document.getElementById("operant").textContent = "Error fetching data.";
+      }
+
+      try {
+        const memoryRes = await fetch("https://vectorium-backend.onrender.com/q360/viewer/memory");
+        const memory = await memoryRes.json();
+        document.getElementById("memory").textContent = JSON.stringify(memory, null, 2);
+      } catch (e) {
+        document.getElementById("memory").textContent = "Error fetching memory.";
       }
     }
 
-    updateView();
-    setInterval(updateView, 30000); // refresh every 30s
+    fetchData();
+    setInterval(fetchData, 30000);
   </script>
 </body>
 </html>
-Enter file contents here
