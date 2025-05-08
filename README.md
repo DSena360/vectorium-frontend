@@ -1,10 +1,12 @@
 # vectorium-frontend
 
-**Frontend interface for Q360.ViewerEngine.v1**
+Frontend for Q360.ViewerEngine.v1 — streams live operant feed and memory diffs from the backend.
 
-This is a static frontend hosted on Vercel that pulls live data from the backend at:
+## Structure
+- `/public/index.html` contains the auto-fetching, auto-refreshing UI
+- Backend URL must be set correctly (currently: https://vectorium-backend.onrender.com)
 
-- `/q360/viewer/data`
-- `/q360/viewer/memory`
-
-## Project Structure
+## How to Run Locally
+```bash
+npm install
+npm start
